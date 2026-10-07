@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оценка медицинского риска</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>Система оценки медицинского риска</h1>
+
+            <p>
+                Введите медицинские показатели и данные об образе жизни
+                для расчёта четырёх показателей риска.
+            </p>
+        </div>
+
+        <div class="form-card">
+
+            <form id="riskForm">
+
+                <h2>Основные показатели</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="age">Возраст</label>
+                        <input
+                            type="number"
+                            id="age"
+                            name="age"
+                            min="18"
+                            max="90"
+                            step="1"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 18–90 лет</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sex">Пол</label>
+                        <select id="sex" name="sex" required>
+                            <option value="">Выберите</option>
+                            <option value="F">Женский</option>
+                            <option value="M">Мужской</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bmi">Индекс массы тела (BMI)</label>
+                        <input
+                            type="number"
+                            id="bmi"
+                            name="bmi"
+                            step="0.1"
+                            min="15"
+                            max="46.8"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 15–46.8</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="glucose_mg_dL">Глюкоза (mg/dL)</label>
+                        <input
+                            type="number"
+                            id="glucose_mg_dL"
+                            name="glucose_mg_dL"
+                            step="0.1"
+                            min="40"
+                            max="267"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 40–267 mg/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="blood_pressure_systolic">
+                            Систолическое артериальное давление
+                        </label>
+                        <input
+                            type="number"
+                            id="blood_pressure_systolic"
+                            name="blood_pressure_systolic"
+                            step="0.1"
+                            min="82.3"
+                            max="177.3"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 82.3–177.3 mmHg</span>
+                    </div>
+
+                </div>
+
+                <h2>Лабораторные показатели</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="cholesterol_mg_dL">
+                            Общий холестерин (mg/dL)
+                        </label>
+                        <input
+                            type="number"
+                            id="cholesterol_mg_dL"
+                            name="cholesterol_mg_dL"
+                            step="0.1"
+                            min="100"
+                            max="355.6"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 100–355.6 mg/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hdl_mg_dL">HDL (mg/dL)</label>
+                        <input
+                            type="number"
+                            id="hdl_mg_dL"
+                            name="hdl_mg_dL"
+                            step="0.1"
+                            min="20"
+                            max="88.8"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 20–88.8 mg/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ldl_mg_dL">LDL (mg/dL)</label>
+                        <input
+                            type="number"
+                            id="ldl_mg_dL"
+                            name="ldl_mg_dL"
+                            step="0.1"
+                            min="50"
+                            max="233.6"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 50–233.6 mg/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="creatinine_mg_dL">
+                            Креатинин (mg/dL)
+                        </label>
+                        <input
+                            type="number"
+                            id="creatinine_mg_dL"
+                            name="creatinine_mg_dL"
+                            step="0.01"
+                            min="0.4"
+                            max="2.24"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 0.4–2.24 mg/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hemoglobin_g_dL">
+                            Гемоглобин (g/dL)
+                        </label>
+                        <input
+                            type="number"
+                            id="hemoglobin_g_dL"
+                            name="hemoglobin_g_dL"
+                            step="0.1"
+                            min="7"
+                            max="19"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 7–19 g/dL</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="insulin_uU_mL">
+                            Инсулин (uU/mL)
+                        </label>
+                        <input
+                            type="number"
+                            id="insulin_uU_mL"
+                            name="insulin_uU_mL"
+                            step="0.1"
+                            min="2"
+                            max="282.6"
+                            required
+                        >
+                        <span class="input-hint">Диапазон данных: 2–282.6 uU/mL</span>
+                    </div>
+
+                </div>
+
+                <h2>Образ жизни и дополнительные факторы</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="smoking_status">Курение</label>
+                        <select id="smoking_status" name="smoking_status" required>
+                            <option value="">Выберите</option>
+                            <option value="never">Никогда</option>
+                            <option value="former">Бывший курильщик</option>
+                            <option value="current">Курит сейчас</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alcohol_use">Употребление алкоголя</label>
+                        <select id="alcohol_use" name="alcohol_use" required>
+                            <option value="">Выберите</option>
+                            <option value="no">Нет</option>
+                            <option value="occasional">Иногда</option>
+                            <option value="regular">Регулярно</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="physical_activity">
+                            Физическая активность
+                        </label>
+                        <select id="physical_activity" name="physical_activity" required>
+                            <option value="">Выберите</option>
+                            <option value="low">Низкая</option>
+                            <option value="medium">Средняя</option>
+                            <option value="high">Высокая</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="family_history_diabetes">
+                            Семейная история диабета
+                        </label>
+                        <select
+                            id="family_history_diabetes"
+                            name="family_history_diabetes"
+                            required
+                        >
+                            <option value="">Выберите</option>
+                            <option value="0">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hypertension_binary">
+                            Наличие гипертонии
+                        </label>
+                        <select
+                            id="hypertension_binary"
+                            name="hypertension_binary"
+                            required
+                        >
+                            <option value="">Выберите</option>
+                            <option value="0">Нет</option>
+                            <option value="1">Да</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="button-container">
+                    <button type="submit">Рассчитать риск</button>
+
+                    <button
+                        type="button"
+                        id="resetButton"
+                        class="reset-button"
+                    >
+                        Очистить форму
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div id="result"></div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
+
