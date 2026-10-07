@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оценка медицинского риска</title>
+
+    <title>Оцінка медичного ризику</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -13,11 +15,11 @@
     <div class="container">
 
         <div class="header">
-            <h1>Система оценки медицинского риска</h1>
+            <h1>Система оцінки медичного ризику</h1>
 
             <p>
-                Введите медицинские показатели и данные об образе жизни
-                для расчёта четырёх показателей риска.
+                Введіть медичні показники та дані про спосіб життя
+                для розрахунку чотирьох показників ризику.
             </p>
         </div>
 
@@ -25,12 +27,15 @@
 
             <form id="riskForm">
 
-                <h2>Основные показатели</h2>
+                <!--основні показники-->
+
+                <h2>Основні показники</h2>
 
                 <div class="form-grid">
 
                     <div class="form-group">
-                        <label for="age">Возраст</label>
+                        <label for="age">Вік</label>
+
                         <input
                             type="number"
                             id="age"
@@ -40,20 +45,29 @@
                             step="1"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 18–90 лет</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 18–90 років
+                        </span>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="sex">Пол</label>
+                        <label for="sex">Стать</label>
+
                         <select id="sex" name="sex" required>
-                            <option value="">Выберите</option>
-                            <option value="F">Женский</option>
-                            <option value="M">Мужской</option>
+                            <option value="">Оберіть</option>
+                            <option value="F">Жіноча</option>
+                            <option value="M">Чоловіча</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="bmi">Индекс массы тела (BMI)</label>
+                        <label for="bmi">
+                            Індекс маси тіла (BMI)
+                        </label>
+
                         <input
                             type="number"
                             id="bmi"
@@ -63,11 +77,18 @@
                             max="46.8"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 15–46.8</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 15–46.8
+                        </span>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="glucose_mg_dL">Глюкоза (mg/dL)</label>
+                        <label for="glucose_mg_dL">
+                            Глюкоза (mg/dL)
+                        </label>
+
                         <input
                             type="number"
                             id="glucose_mg_dL"
@@ -77,13 +98,18 @@
                             max="267"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 40–267 mg/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 40–267 mg/dL
+                        </span>
                     </div>
+
 
                     <div class="form-group">
                         <label for="blood_pressure_systolic">
-                            Систолическое артериальное давление
+                            Систолічний артеріальний тиск
                         </label>
+
                         <input
                             type="number"
                             id="blood_pressure_systolic"
@@ -93,19 +119,26 @@
                             max="177.3"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 82.3–177.3 mmHg</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 82.3–177.3 mmHg
+                        </span>
                     </div>
 
                 </div>
 
-                <h2>Лабораторные показатели</h2>
+
+                <!--лабораторні показники-->
+
+                <h2>Лабораторні показники</h2>
 
                 <div class="form-grid">
 
                     <div class="form-group">
                         <label for="cholesterol_mg_dL">
-                            Общий холестерин (mg/dL)
+                            Загальний холестерин (mg/dL)
                         </label>
+
                         <input
                             type="number"
                             id="cholesterol_mg_dL"
@@ -115,11 +148,18 @@
                             max="355.6"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 100–355.6 mg/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 100–355.6 mg/dL
+                        </span>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="hdl_mg_dL">HDL (mg/dL)</label>
+                        <label for="hdl_mg_dL">
+                            HDL (mg/dL)
+                        </label>
+
                         <input
                             type="number"
                             id="hdl_mg_dL"
@@ -129,11 +169,18 @@
                             max="88.8"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 20–88.8 mg/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 20–88.8 mg/dL
+                        </span>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="ldl_mg_dL">LDL (mg/dL)</label>
+                        <label for="ldl_mg_dL">
+                            LDL (mg/dL)
+                        </label>
+
                         <input
                             type="number"
                             id="ldl_mg_dL"
@@ -143,13 +190,18 @@
                             max="233.6"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 50–233.6 mg/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 50–233.6 mg/dL
+                        </span>
                     </div>
+
 
                     <div class="form-group">
                         <label for="creatinine_mg_dL">
-                            Креатинин (mg/dL)
+                            Креатинін (mg/dL)
                         </label>
+
                         <input
                             type="number"
                             id="creatinine_mg_dL"
@@ -159,13 +211,18 @@
                             max="2.24"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 0.4–2.24 mg/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 0.4–2.24 mg/dL
+                        </span>
                     </div>
+
 
                     <div class="form-group">
                         <label for="hemoglobin_g_dL">
-                            Гемоглобин (g/dL)
+                            Гемоглобін (g/dL)
                         </label>
+
                         <input
                             type="number"
                             id="hemoglobin_g_dL"
@@ -175,13 +232,18 @@
                             max="19"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 7–19 g/dL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 7–19 g/dL
+                        </span>
                     </div>
+
 
                     <div class="form-group">
                         <label for="insulin_uU_mL">
-                            Инсулин (uU/mL)
+                            Інсулін (uU/mL)
                         </label>
+
                         <input
                             type="number"
                             id="insulin_uU_mL"
@@ -191,101 +253,140 @@
                             max="282.6"
                             required
                         >
-                        <span class="input-hint">Диапазон данных: 2–282.6 uU/mL</span>
+
+                        <span class="input-hint">
+                            Діапазон даних: 2–282.6 uU/mL
+                        </span>
                     </div>
 
                 </div>
 
-                <h2>Образ жизни и дополнительные факторы</h2>
+
+                <!--спосіб життя та додаткові фактори-->
+
+                <h2>Спосіб життя та додаткові фактори</h2>
 
                 <div class="form-grid">
 
                     <div class="form-group">
-                        <label for="smoking_status">Курение</label>
-                        <select id="smoking_status" name="smoking_status" required>
-                            <option value="">Выберите</option>
-                            <option value="never">Никогда</option>
-                            <option value="former">Бывший курильщик</option>
-                            <option value="current">Курит сейчас</option>
+                        <label for="smoking_status">
+                            Куріння
+                        </label>
+
+                        <select
+                            id="smoking_status"
+                            name="smoking_status"
+                            required
+                        >
+                            <option value="">Оберіть</option>
+                            <option value="never">Ніколи</option>
+                            <option value="former">Колишній курець</option>
+                            <option value="current">Курить зараз</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
-                        <label for="alcohol_use">Употребление алкоголя</label>
-                        <select id="alcohol_use" name="alcohol_use" required>
-                            <option value="">Выберите</option>
-                            <option value="no">Нет</option>
-                            <option value="occasional">Иногда</option>
+                        <label for="alcohol_use">
+                            Вживання алкоголю
+                        </label>
+
+                        <select
+                            id="alcohol_use"
+                            name="alcohol_use"
+                            required
+                        >
+                            <option value="">Оберіть</option>
+                            <option value="no">Ні</option>
+                            <option value="occasional">Іноді</option>
                             <option value="regular">Регулярно</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
                         <label for="physical_activity">
-                            Физическая активность
+                            Фізична активність
                         </label>
-                        <select id="physical_activity" name="physical_activity" required>
-                            <option value="">Выберите</option>
-                            <option value="low">Низкая</option>
-                            <option value="medium">Средняя</option>
-                            <option value="high">Высокая</option>
+
+                        <select
+                            id="physical_activity"
+                            name="physical_activity"
+                            required
+                        >
+                            <option value="">Оберіть</option>
+                            <option value="low">Низька</option>
+                            <option value="medium">Середня</option>
+                            <option value="high">Висока</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
                         <label for="family_history_diabetes">
-                            Семейная история диабета
+                            Сімейна історія діабету
                         </label>
+
                         <select
                             id="family_history_diabetes"
                             name="family_history_diabetes"
                             required
                         >
-                            <option value="">Выберите</option>
-                            <option value="0">Нет</option>
-                            <option value="1">Да</option>
+                            <option value="">Оберіть</option>
+                            <option value="0">Ні</option>
+                            <option value="1">Так</option>
                         </select>
                     </div>
 
+
                     <div class="form-group">
                         <label for="hypertension_binary">
-                            Наличие гипертонии
+                            Наявність гіпертонії
                         </label>
+
                         <select
                             id="hypertension_binary"
                             name="hypertension_binary"
                             required
                         >
-                            <option value="">Выберите</option>
-                            <option value="0">Нет</option>
-                            <option value="1">Да</option>
+                            <option value="">Оберіть</option>
+                            <option value="0">Ні</option>
+                            <option value="1">Так</option>
                         </select>
                     </div>
 
                 </div>
 
+
                 <div class="button-container">
-                    <button type="submit">Рассчитать риск</button>
+
+                    <button type="submit">
+                        Розрахувати ризик
+                    </button>
 
                     <button
                         type="button"
                         id="resetButton"
                         class="reset-button"
                     >
-                        Очистить форму
+                        Очистити форму
                     </button>
+
                 </div>
 
             </form>
 
         </div>
 
+
         <div id="result"></div>
 
     </div>
 
+
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
 </body>
+
 </html>
 

@@ -1,16 +1,20 @@
 const form = document.getElementById("riskForm");
 const result = document.getElementById("result");
-const submitButton = form.querySelector('button[type="submit"]');
 const resetButton = document.getElementById("resetButton");
 
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    //отримання даних з форми
     const data = {
         age: Number(document.getElementById("age").value),
         sex: document.getElementById("sex").value,
         bmi: Number(document.getElementById("bmi").value),
-        glucose_mg_dL: Number(document.getElementById("glucose_mg_dL").value),
+        glucose_mg_dL: Number(
+            document.getElementById("glucose_mg_dL").value
+        ),
         blood_pressure_systolic: Number(
             document.getElementById("blood_pressure_systolic").value
         ),
@@ -43,14 +47,18 @@ form.addEventListener("submit", async function(event) {
         )
     };
 
-    result.innerHTML = "Расчёт выполняется...";
+    result.innerHTML = `
+        <div class="loading-message">
+            Виконується розрахунок...
+        </div>
+    `;
 
     submitButton.disabled = true;
-    resetButton.disabled = true;
-
-    submitButton.textContent = "Расчёт выполняется...";
+    submitButton.textContent = "Розрахунок виконується...";
 
     try {
+
+        //відправлення даних на сервер для отримання прогнозу
         const response = await fetch("/predict", {
             method: "POST",
             headers: {
@@ -63,123 +71,179 @@ form.addEventListener("submit", async function(event) {
 
         if (!response.ok) {
             throw new Error(
-                prediction.error || "Ошибка при получении прогноза"
+                prediction.error || "Не вдалося виконати розрахунок"
             );
         }
 
-        const diabetesRisk = Math.min(
+        //перетворення отриманих значень ризику у відсотки
+        const diabetesPercent = Math.min(
             Math.max(prediction.diabetes_risk * 100, 0),
             100
         );
 
-        const heartRisk = Math.min(
+        const heartPercent = Math.min(
             Math.max(prediction.heart_disease_risk * 100, 0),
             100
         );
 
-        const kidneyRisk = Math.min(
+        const kidneyPercent = Math.min(
             Math.max(prediction.kidney_disease_risk * 100, 0),
             100
         );
 
-        const strokeRisk = Math.min(
+        const strokePercent = Math.min(
             Math.max(prediction.stroke_risk * 100, 0),
             100
         );
 
+        //формування та відображення результатів прогнозування
         result.innerHTML = `
-            <h2>Результаты оценки риска</h2>
+            <div class="results-header">
+                <h2>Результати оцінки ризику</h2>
+
+                <p>
+                    Розрахункові значення, отримані з використанням
+                    моделі машинного навчання.
+                </p>
+            </div>
 
             <div class="results-grid">
 
                 <div class="result-card">
-                    <h3>Риск диабета</h3>
+                    <h3>Ризик діабету</h3>
 
                     <div class="result-value">
-                        ${diabetesRisk.toFixed(2)}%
+                        ${diabetesPercent.toFixed(2)}%
                     </div>
+
+                    <p class="result-description">
+                        Розрахункове значення моделі.
+                    </p>
 
                     <div class="risk-bar">
                         <div
                             class="risk-bar-fill"
-                            style="width: ${diabetesRisk}%"
+                            style="width: ${diabetesPercent}%"
                         ></div>
                     </div>
                 </div>
 
                 <div class="result-card">
-                    <h3>Риск сердечно-сосудистого заболевания</h3>
+                    <h3>Ризик серцево-судинного захворювання</h3>
 
                     <div class="result-value">
-                        ${heartRisk.toFixed(2)}%
+                        ${heartPercent.toFixed(2)}%
                     </div>
+
+                    <p class="result-description">
+                        Розрахункове значення моделі.
+                    </p>
 
                     <div class="risk-bar">
                         <div
                             class="risk-bar-fill"
-                            style="width: ${heartRisk}%"
+                            style="width: ${heartPercent}%"
                         ></div>
                     </div>
                 </div>
 
                 <div class="result-card">
-                    <h3>Риск заболевания почек</h3>
+                    <h3>Ризик захворювання нирок</h3>
 
                     <div class="result-value">
-                        ${kidneyRisk.toFixed(2)}%
+                        ${kidneyPercent.toFixed(2)}%
                     </div>
+
+                    <p class="result-description">
+                        Розрахункове значення моделі.
+                    </p>
 
                     <div class="risk-bar">
                         <div
                             class="risk-bar-fill"
-                            style="width: ${kidneyRisk}%"
+                            style="width: ${kidneyPercent}%"
                         ></div>
                     </div>
                 </div>
 
                 <div class="result-card">
-                    <h3>Риск инсульта</h3>
+                    <h3>Ризик інсульту</h3>
 
                     <div class="result-value">
-                        ${strokeRisk.toFixed(2)}%
+                        ${strokePercent.toFixed(2)}%
                     </div>
+
+                    <p class="result-description">
+                        Розрахункове значення моделі.
+                    </p>
 
                     <div class="risk-bar">
                         <div
                             class="risk-bar-fill"
-                            style="width: ${strokeRisk}%"
+                            style="width: ${strokePercent}%"
                         ></div>
                     </div>
                 </div>
 
             </div>
 
+            <div class="recommendations">
+                <h2>Інформаційні рекомендації</h2>
+
+                <ul>
+                    <li>
+                        Результати оцінки слід розглядати у сукупності
+                        з іншими показниками стану здоров'я.
+                    </li>
+
+                    <li>
+                        Для отримання професійної оцінки стану
+                        здоров'я рекомендується звернутися до медичного
+                        спеціаліста.
+                    </li>
+
+                    <li>
+                        При зміні початкових медичних показників
+                        рекомендується повторити розрахунок.
+                    </li>
+
+                    <li>
+                        Отримані значення є результатом роботи
+                        математичної моделі та не є медичним
+                        діагнозом.
+                    </li>
+                </ul>
+            </div>
+
             <div class="disclaimer">
-                Расчёт представляет собой результат работы математической модели
-                машинного обучения и носит информационный характер.
-                Он не является медицинским диагнозом и не заменяет консультацию
-                квалифицированного медицинского специалиста.
+                Розрахунок є результатом роботи математичної моделі
+                машинного навчання та має інформаційний характер.
+                Він не є медичним діагнозом і не замінює консультацію
+                кваліфікованого медичного спеціаліста.
             </div>
         `;
 
     } catch (error) {
+
         result.innerHTML = `
             <div class="error-message">
-                <strong>Не удалось выполнить расчёт.</strong>
-                <p>${error.message}</p>
+                <strong>Помилка:</strong> ${error.message}
             </div>
         `;
 
         console.error(error);
 
     } finally {
+
         submitButton.disabled = false;
-        resetButton.disabled = false;
-        submitButton.textContent = "Рассчитать риск";
+        submitButton.textContent = "Розрахувати ризик";
     }
 });
 
+
 resetButton.addEventListener("click", function() {
+    //очищення форми та результатів розрахунку
     form.reset();
     result.innerHTML = "";
 });
+
